@@ -4,7 +4,8 @@
         <t t-call="web.html_container">
             <t t-call="web.internal_layout">
                 <div class="page">
-                    <h2><span t-esc="res_company.name"/>: Trial Balance</h2>
+                    <h2><span t-esc="res_company.name"/>: Trial Balance
+                    </h2>
 
                     <div class="row mt32">
                         <div class="col-4">
@@ -17,8 +18,15 @@
                         </div>
                         <div class="col-4">
                             <p>
-                                <t t-if="data['date_from']"><strong>Date from :</strong> <span t-esc="data['date_from']"/><br/></t>
-                                <t t-if="data['date_to']"><strong>Date to :</strong> <span t-esc="data['date_to']"/></t>
+                                <t t-if="data['date_from']">
+                                    <strong>Date from :</strong>
+                                    <span t-esc="data['date_from']"/>
+                                    <br/>
+                                </t>
+                                <t t-if="data['date_to']">
+                                    <strong>Date to :</strong>
+                                    <span t-esc="data['date_to']"/>
+                                </t>
                             </p>
                         </div>
                         <div class="col-4">
@@ -29,7 +37,42 @@
                             </p>
                         </div>
                     </div>
+                    <t t-if="by_account_type == 'yes'">
+                        <table class="table table-sm table-reports">
+                            <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th class="text-right">Total Debit</th>
+                                    <th class="text-right">Total Credit</th>
+                                    <th class="text-right">Balance</th>
+                                </tr>
+                            </thead>
+                            <tbody>
 
+                                <tr t-foreach="AccountsGrouping" t-as="my_account_type">
+                                    <td>
+                                        <span t-att-style="style" t-esc="my_account_type['type']"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-att-style="style" t-esc="my_account_type['debit']"
+                                              t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-att-style="style" t-esc="my_account_type['credit']"
+                                              t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-att-style="style" t-esc="my_account_type['balance']"
+                                              t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </t>
+
+                    <t t-if="by_account_type != 'yes'">
                     <table class="table table-sm table-reports">
                         <thead>
                             <tr>
@@ -50,17 +93,21 @@
                                     <span t-att-style="style" t-esc="account['name']"/>
                                 </td>
                                 <td class="text-right">
-                                     <span t-att-style="style" t-esc="account['debit']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                                    <span t-att-style="style" t-esc="account['debit']"
+                                          t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
                                 </td>
                                 <td class="text-right">
-                                    <span t-att-style="style" t-esc="account['credit']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                                    <span t-att-style="style" t-esc="account['credit']"
+                                          t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
                                 </td>
                                 <td class="text-right">
-                                    <span t-att-style="style" t-esc="account['balance']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                                    <span t-att-style="style" t-esc="account['balance']"
+                                          t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
+                    </t>
                 </div>
             </t>
         </t>

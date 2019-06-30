@@ -10,8 +10,10 @@
             <field name="journal_ids" position="replace"/>
                 <xpath expr="//field[@name='target_move']" position="after">
                     <field name="display_account" widget="radio"/>
+                    <field name="group_by_type" widget="radio"/>
                     <newline/>
                 </xpath>
+
             </data>
         </field>
     </record>
