@@ -10,6 +10,14 @@
             name="accounting_pdf_reports.report_generalledger"
             file="accounting_pdf_reports.report_generalledger"
             />
+<!--        <report-->
+<!--            id="action_report_general_ledger_xls"-->
+<!--            model="account.report.general.ledger"-->
+<!--            string="General Ledger Excel"-->
+<!--            report_type="xlsx"-->
+<!--            name="accounting_pdf_reports.report_generalledger_xls"-->
+<!--            file="accounting_pdf_reports.report_generalledger_xls"-->
+<!--            />-->
 
         <report
             id="action_report_partnerledger"

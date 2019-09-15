@@ -14,6 +14,9 @@ class AccountReportGeneralLedger(models.TransientModel):
     sortby = fields.Selection([('sort_date', 'Date'), ('sort_journal_partner', 'Journal & Partner')], string='Sort by', required=True, default='sort_date')
     journal_ids = fields.Many2many('account.journal', 'account_report_general_ledger_journal_rel', 'account_id', 'journal_id', string='Journals', required=True)
 
+
+
+
     def _print_report(self, data):
         data = self.pre_print_report(data)
         data['form'].update(self.read(['initial_balance', 'sortby'])[0])

@@ -8,6 +8,14 @@ from odoo.exceptions import UserError
 class ReportGeneralLedger(models.AbstractModel):
     _name = 'report.accounting_pdf_reports.report_generalledger'
 
+    # def create_xlsx_report(self, workbook, data):
+    #     report_name = workbook.name
+    #     # One sheet by partner
+    #     sheet = workbook.add_worksheet(report_name[:31])
+    #     bold = workbook.add_format({'bold': True})
+    #     sheet.write(0, 0, workbook.name, bold)
+
+
     def _get_account_move_entry(self, accounts, init_balance, sortby, display_account):
         """
         :param:
