@@ -7,6 +7,7 @@ from odoo.exceptions import UserError
 
 class ReportGeneralLedger(models.AbstractModel):
     _name = 'report.accounting_pdf_reports.report_generalledger'
+    _description = "General Ledger"
 
     # def create_xlsx_report(self, workbook, data):
     #     report_name = workbook.name
