@@ -53,7 +53,7 @@
                                         <strong t-esc="'{:,.3f}'.format(sum_partner(data, o, 'debit - credit'))"/>
                                     </td>
                                     <td class="text-right">
-                                        <strong t-esc="'USD.{:,.2f}'.format(sum_partner(data, o, 'amount_currency'))"/>
+                                        <strong t-esc="'{:,.2f}'.format(sum_partner(data, o, 'amount_currency'))"/>
                                     </td>
 
                                 </tr>
