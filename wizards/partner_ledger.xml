@@ -6,15 +6,17 @@
         <field name="model">account.report.partner.ledger</field>
         <field name="inherit_id" ref="account.account_common_report_view"/>
         <field name="arch" type="xml">
-        <data>
-        <xpath expr="//field[@name='target_move']" position="after">
-                <field name="result_selection"/>
-                <field name="amount_currency" groups="base.group_multi_currency"/>
-                <newline/>
-                <field name="reconciled"/>
-                <newline/>
-            </xpath>
-        </data>
+            <data>
+                <xpath expr="//field[@name='target_move']" position="after">
+                    <field name="result_selection"/>
+                    <field name="amount_currency" groups="base.group_multi_currency"/>
+                    <field name="reconciled"/>
+                    <newline/>
+                    <field name="partner_sponsor" attrs="{'invisible': [('result_selection','=','supplier')]}"/>
+                    <field name="partner_external_offfice" attrs="{'invisible': [('result_selection','=','customer')]}"/>
+                    <newline/>
+                </xpath>
+            </data>
         </field>
     </record>
 
@@ -26,17 +28,17 @@
         <field name="view_mode">form</field>
         <field name="view_id" ref="account_report_partner_ledger_view"/>
         <field name="target">new</field>
-        <field name="binding_model_id" ref="account.model_account_account" />
+        <field name="binding_model_id" ref="account.model_account_account"/>
         <field name="binding_type">report</field>
     </record>
 
     <menuitem
-        id="menu_partner_ledger"
-        name="Partner Ledger"
-        sequence="2"
-        parent="accounting_pdf_reports.menu_finance_legal_statement"
-        action="action_account_partner_ledger_menu"
-        groups="account.group_account_user"
-       />
+            id="menu_partner_ledger"
+            name="Partner Ledger"
+            sequence="2"
+            parent="accounting_pdf_reports.menu_finance_legal_statement"
+            action="action_account_partner_ledger_menu"
+            groups="account.group_account_user"
+    />
 
 </odoo>

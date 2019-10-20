@@ -10,7 +10,6 @@ class AccountingCommonPartnerReport(models.TransientModel):
 
     result_selection = fields.Selection([('customer', 'Receivable Accounts'),
                                          ('supplier', 'Payable Accounts'),
-                                         ('customer_supplier', 'Receivable and Payable Accounts')
                                          ], string="Partner's", required=True, default='customer')
 
     def pre_print_report(self, data):

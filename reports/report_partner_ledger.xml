@@ -2,9 +2,8 @@
 <odoo>
     <template id="report_partnerledger">
         <t t-call="web.html_container">
-            <t t-set="data_report_margin_top" t-value="12"/>
-            <t t-set="data_report_header_spacing" t-value="9"/>
-            <t t-set="data_report_dpi" t-value="110"/>
+
+            <t t-set="data_report_landscape" t-value="True"/>
             <t t-foreach="docs" t-as="o">
                 <t t-call="web.external_layout">
                     <div class="page">
@@ -33,31 +32,28 @@
                                     <th>JRNL</th>
                                     <th>Account</th>
                                     <th>Ref</th>
-                                    <th>Debit</th>
-                                    <th>Credit</th>
-                                    <th>Balance</th>
-                                    <th t-if="data['form']['amount_currency']">Currency</th>
+                                    <th class="text-right">Debit (KWD)</th>
+                                    <th class="text-right">Credit (KWD)</th>
+                                    <th class="text-right">Balance (KWD)</th>
+                                    <th class="text-right" t-if="data['form']['amount_currency']">Currency (USD)</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td colspan="4">
-                                            <strong t-esc="o.ref"/>
-                                            - <strong t-esc="o.name"/>
+                                            <strong t-esc="o.name"/>
                                     </td>
                                     <td class="text-right">
-                                        <strong t-esc="sum_partner(data, o, 'debit')" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                                        <strong t-esc="'{:,.3f}'.format(sum_partner(data, o, 'debit'))"/>
                                     </td>
                                     <td class="text-right">
-                                        <strong t-esc="sum_partner(data, o, 'credit')" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                                        <strong t-esc="'{:,.3f}'.format(sum_partner(data, o, 'credit'))"/>
                                     </td>
                                     <td class="text-right">
-                                        <strong t-esc="sum_partner(data, o, 'debit - credit')"
-                                                t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                                        <strong t-esc="'{:,.3f}'.format(sum_partner(data, o, 'debit - credit'))"/>
                                     </td>
                                     <td class="text-right">
-                                        <strong t-esc="sum_partner(data, o, 'amount_currency')"
-                                                />
+                                        <strong t-esc="'USD.{:,.2f}'.format(sum_partner(data, o, 'amount_currency'))"/>
                                     </td>
 
                                 </tr>
@@ -75,17 +71,17 @@
                                         <span t-esc="line['displayed_name']"/>
                                     </td>
                                     <td class="text-right">
-                                        <span t-esc="line['debit']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                                        <span t-esc="'{:,.3f}'.format(line['debit'])"/>
                                     </td>
                                     <td class="text-right">
-                                        <span t-esc="line['credit']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                                        <span t-esc="'{:,.3f}'.format(line['credit'])" />
                                     </td>
                                     <td class="text-right">
-                                        <span t-esc="line['progress']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                                        <span t-esc="'{:,.3f}'.format(line['progress'])" />
                                     </td>
                                     <td class="text-right" t-if="data['form']['amount_currency']">
                                         <t t-if="line['currency_id']">
-                                          <span t-esc="line['amount_currency']" t-options="{'widget': 'monetary', 'display_currency': line['currency_id']}"/>
+                                          <span t-esc="'USD.{:,.2f}'.format(line['amount_currency'])" />
                                         </t>
                                     </td>
                                 </tr>

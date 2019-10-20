@@ -6,7 +6,7 @@
             id="action_report_general_ledger"
             model="account.report.general.ledger"
             string="General Ledger"
-            report_type="qweb-pdf"
+            report_type="qweb-html"
             name="accounting_pdf_reports.report_generalledger"
             file="accounting_pdf_reports.report_generalledger"
             />
@@ -23,7 +23,7 @@
             id="action_report_partnerledger"
             model="account.report.partner.ledger"
             string="Partner Ledger"
-            report_type="qweb-pdf"
+            report_type="qweb-html"
             name="accounting_pdf_reports.report_partnerledger"
             file="accounting_pdf_reports.report_partnerledger"
             />
@@ -32,7 +32,7 @@
             id="action_report_trial_balance"
             model="account.balance.report"
             string="Trial Balance"
-            report_type="qweb-pdf"
+            report_type="qweb-html"
             name="accounting_pdf_reports.report_trialbalance"
             file="accounting_pdf_reports.report_trialbalance"
             />
@@ -42,7 +42,7 @@
             model="account.financial.report"
             string="Financial report"
             menu="False"
-            report_type="qweb-pdf"
+            report_type="qweb-html"
             name="accounting_pdf_reports.report_financial"
             file="accounting_pdf_reports.report_financial"
             />
@@ -51,7 +51,7 @@
             id="action_report_account_tax"
             model="account.tax.report"
             string="Tax Report"
-            report_type="qweb-pdf"
+            report_type="qweb-html"
             name="accounting_pdf_reports.report_tax"
             file="accounting_pdf_reports.report_tax"
             />
@@ -61,7 +61,7 @@
             model="res.partner"
             string="Aged Partner Balance"
             menu="False"
-            report_type="qweb-pdf"
+            report_type="qweb-html"
             name="accounting_pdf_reports.report_agedpartnerbalance"
             file="accounting_pdf_reports.report_agedpartnerbalance"
         />
@@ -70,7 +70,7 @@
             id="action_report_journal"
             model="account.common.journal.report"
             string="Journals Audit"
-            report_type="qweb-pdf"
+            report_type="qweb-html"
             name="accounting_pdf_reports.report_journal"
             file="accounting_pdf_reports.report_journal"
             />
