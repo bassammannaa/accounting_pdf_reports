@@ -22,7 +22,7 @@ class AccountReportGeneralLedger(models.TransientModel):
     def _print_report(self, data):
         data = self.pre_print_report(data)
         data['form'].update(self.read(['initial_balance', 'sortby'])[0])
-        data['form'].update({'selected_account': self.selected_account.id if self.selected_account else 0 })
+        data['form'].update({'selected_account': self.selected_account.id if self.selected_account else 0})
 
         if data['form'].get('initial_balance') and not data['form'].get('date_from'):
             raise UserError(_("You must define a Start Date"))
