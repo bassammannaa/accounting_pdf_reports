@@ -38,7 +38,7 @@
                         </div>
                     </div>
                     <t t-if="by_account_type == 'yes'">
-                        <table class="table table-sm table-reports">
+                        <table class="table table-sm table-hover table-bordered">
                             <thead>
                                 <tr>
                                     <th class="text-left">Type</th>
@@ -70,7 +70,7 @@
                     </t>
 
                     <t t-if="by_account_type != 'yes'">
-                        <table class="table table-sm table-reports">
+                        <table class="table table-sm table-hover table-bordered">
                             <thead>
                                 <tr>
                                     <th class="text-left">Code</th>

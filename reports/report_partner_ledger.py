@@ -92,31 +92,20 @@ class ReportPartnerLedger(models.AbstractModel):
         else:
             data['computed']['ACCOUNT_TYPE'] = ['payable', 'receivable']
 
-        selected_account = data['form'].get('selected_account', True)
-        # if selected_account > 0:
-        #     accounts = data if self.model == 'account.account' else self.env['account.account'].search(
-        #         [('id', '=', selected_account)])
-        # else:
-        #     accounts = data if self.model == 'account.account' else self.env['account.account'].search([])
-        #
-        # if accounts:
-        #     s= 1
-
-
-
-
         self.env.cr.execute("""
             SELECT a.id
             FROM account_account a
             WHERE a.internal_type IN %s
             AND NOT a.deprecated""", (tuple(data['computed']['ACCOUNT_TYPE']),))
-        data['computed']['account_ids'] = [a for (a,) in self.env.cr.fetchall()]
+
+        selected_account = data['form'].get('selected_account', True)
+        if selected_account:
+            data['computed']['account_ids'] = tuple([selected_account])
+        else:
+            data['computed']['account_ids'] = [a for (a,) in self.env.cr.fetchall()]
+
         params = [tuple(data['computed']['move_state']), tuple(data['computed']['account_ids'])] + query_get_data[2]
         reconcile_clause = "" if data['form']['reconciled'] else ' AND "account_move_line".full_reconcile_id IS NULL '
-        if data['form']['selected_account']:
-            account_close = " AND a.id = " + str(selected_account)
-        else:
-            account_close = ""
         query = """
             SELECT DISTINCT "account_move_line".partner_id
             FROM """ + query_get_data[0] + """, account_account AS account, account_move AS am

@@ -24,7 +24,7 @@
                             </div>
                         </div>
 
-                        <table class="table table-sm table-reports">
+                        <table class="table table-sm table-hover table-bordered">
                             <thead>
                                 <tr>
                                     <th>Date</th>
