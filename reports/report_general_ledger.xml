@@ -10,8 +10,8 @@
 
                     <div class="row mt32">
                         <div class="col-4">
-                            <strong>Journals:</strong>
-                            <p t-esc="', '.join([ lt or '' for lt in print_journal ])"/>
+<!--                            <strong>Journals:</strong>-->
+<!--                            <p t-esc="', '.join([ lt or '' for lt in print_journal ])"/>-->
                         </div>
                         <div class="col-4">
                             <strong>Display Account</strong>

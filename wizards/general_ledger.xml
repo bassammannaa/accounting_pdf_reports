@@ -6,15 +6,24 @@
         <field name="model">account.report.general.ledger</field>
         <field name="inherit_id" ref="account.account_common_report_view"/>
         <field name="arch" type="xml">
-        <data>
-        <xpath expr="//field[@name='target_move']" position="after">
-            <field name="sortby" widget="radio"/>
-            <field name="display_account" widget="radio"/>
-            <field name="initial_balance"/>
-            <field name="selected_account"/>
-            <newline/>
-        </xpath>
-        </data>
+            <data>
+                <xpath expr="//field[@name='target_move']" position="after">
+                    <field name="sortby" widget="radio"/>
+                    <field name="display_account" widget="radio"/>
+                    <field name="initial_balance"/>
+                    <field name="selected_account"/>
+                    <newline/>
+                </xpath>
+                <xpath expr="//field[@name='date_from']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='date_to']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='journal_ids']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </data>
         </field>
     </record>
 
@@ -26,7 +35,7 @@
         <field name="view_mode">form</field>
         <field name="view_id" ref="account_report_general_ledger_view"/>
         <field name="target">new</field>
-        <field name="binding_model_id" ref="account.model_account_account" />
+        <field name="binding_model_id" ref="account.model_account_account"/>
         <field name="binding_type">report</field>
         <field name="context" eval="{'default_date_from': datetime.strftime(datetime.now()-timedelta(days=30),'%Y-%m-%d'),
         'default_date_to': datetime.strftime(datetime.now(),'%Y-%m-%d')}"/>
@@ -34,12 +43,12 @@
     </record>
 
     <menuitem
-        id="menu_general_ledger"
-        name="General Ledger"
-        sequence="3"
-        parent="accounting_pdf_reports.menu_finance_legal_statement"
-        action="action_account_general_ledger_menu"
-        groups="account.group_account_user"
-       />
+            id="menu_general_ledger"
+            name="General Ledger"
+            sequence="3"
+            parent="accounting_pdf_reports.menu_finance_legal_statement"
+            action="action_account_general_ledger_menu"
+            groups="account.group_account_user"
+    />
 
 </odoo>

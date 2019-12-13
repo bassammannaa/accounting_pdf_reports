@@ -11,10 +11,24 @@
                     <field name="result_selection"/>
                     <field name="amount_currency" groups="base.group_multi_currency"/>
                     <field name="reconciled"/>
+
                     <newline/>
                     <field name="partner_sponsor" attrs="{'invisible': [('result_selection','=','supplier')]}"/>
-                    <field name="partner_external_offfice" attrs="{'invisible': [('result_selection','=','customer')]}"/>
+                    <field name="selected_account"/>
                     <newline/>
+                    <field name="partner_external_offfice"
+                           attrs="{'invisible': [('result_selection','=','customer')]}"/>
+                    <newline/>
+
+                </xpath>
+                <xpath expr="//field[@name='date_from']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='date_to']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='journal_ids']" position="attributes">
+                    <attribute name="invisible">1</attribute>
                 </xpath>
             </data>
         </field>
