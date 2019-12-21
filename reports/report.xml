@@ -75,5 +75,15 @@
             file="accounting_pdf_reports.report_journal"
             />
 
+        <report
+                id="report_account_move_action"
+                model="account.move"
+                string="Account Move Statement"
+                report_type="qweb-html"
+                name="accounting_pdf_reports.report_account_move"
+                file="accounting_pdf_reports.report_account_move"
+                menu="True"
+        />
+
     </data>
 </odoo>

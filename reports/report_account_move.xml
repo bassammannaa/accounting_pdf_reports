@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_account_move">
+        <t t-call="web.html_container">
+            <t t-set="data_report_landscape" t-value="True"/>
+            <t t-call="web.external_layout">
+                <t t-foreach="docs" t-as="o">
+
+                    <div class="row mt32">
+                        <div class="col-3 small">
+                            <strong>Transaction Date:</strong>
+                            <p t-esc="o.date"/>
+                        </div>
+                        <div class="col-3 small">
+                            <strong>Movement ID:</strong>
+                            <p t-esc="o.name"/>
+                        </div>
+                        <div class="col-3 small">
+                            <strong>Movement Status:</strong>
+                            <p t-esc="o.state"/>
+                        </div>
+                        <div class="col-3 small">
+                            <strong>Journal:</strong>
+                            <p t-esc="o.journal_id.name"/>
+                        </div>
+                    </div>
+
+                    <table class="table table-sm table-hover table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="text-left small">Account</th>
+                                <th class="text-left small">Partner</th>
+                                <th class="text-left small">Housemaid</th>
+                                <th class="text-left small">Office</th>
+                                <th class="text-left small">Debit (KWD)</th>
+                                <th class="text-left small">Credit (KWD)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="account_move_lines(docs)" t-as="account_move_line">
+                                <td class="text-left small">
+                                    <span t-esc="account_move_line['account_code']"/>
+                                    -
+                                    <span t-esc="account_move_line['account_name']"/>
+                                </td>
+                                <td class="text-left small">
+                                    <span t-esc="account_move_line['partner_name']"/>
+                                </td>
+                                <td class="text-left small">
+                                    <span t-esc="account_move_line['hm_name']"/>
+                                </td>
+                                <td class="text-left small">
+                                    <span t-esc="account_move_line['office_name']"/>
+                                </td>
+                                <td class="text-right small">
+                                    <span t-esc="'{:,.3f}'.format(account_move_line['debit'])"/>
+                                </td>
+                                <td class="text-right small">
+                                    <span t-esc="'{:,.3f}'.format(account_move_line['credit'])"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="row small">
+                        <strong> Movement Reason:</strong>
+                            <p t-esc="o.ref"/>
+                    </div>
+
+
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>
