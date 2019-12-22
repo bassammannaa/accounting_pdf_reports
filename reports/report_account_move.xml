@@ -32,11 +32,16 @@
                                 <th class="text-left small">Partner</th>
                                 <th class="text-left small">Housemaid</th>
                                 <th class="text-left small">Office</th>
-                                <th class="text-left small">Debit (KWD)</th>
-                                <th class="text-left small">Credit (KWD)</th>
+                                <th class="text-left small">Currency</th>
+                                <th class="text-left small">EQ Amount</th>
+                                <th class="text-left small">Rate</th>
+                                <th class="text-right small">Debit (KWD)</th>
+                                <th class="text-right small">Credit (KWD)</th>
                             </tr>
                         </thead>
                         <tbody>
+                            <t t-set="tot_debit" t-value="0"/>
+                            <t t-set="tot_credit" t-value="0"/>
                             <tr t-foreach="account_move_lines(docs)" t-as="account_move_line">
                                 <td class="text-left small">
                                     <span t-esc="account_move_line['account_code']"/>
@@ -52,18 +57,44 @@
                                 <td class="text-left small">
                                     <span t-esc="account_move_line['office_name']"/>
                                 </td>
+                                <td class="text-left small">
+                                    <span t-esc="account_move_line['currency_name']"/>
+                                </td>
+                                <td class="text-left small">
+                                    <span t-esc="'{:,.3f}'.format(account_move_line['amount_currency'])"/>
+                                </td>
+                                <td class="text-left small">
+                                    <span t-esc="'{:,.6f}'.format(account_move_line['rate'])"/>
+                                </td>
                                 <td class="text-right small">
                                     <span t-esc="'{:,.3f}'.format(account_move_line['debit'])"/>
                                 </td>
                                 <td class="text-right small">
                                     <span t-esc="'{:,.3f}'.format(account_move_line['credit'])"/>
                                 </td>
+                                <t t-set="tot_debit" t-value="tot_debit+account_move_line['debit']"/>
+                                <t t-set="tot_credit" t-value="tot_credit+account_move_line['credit']"/>
                             </tr>
                         </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="7" class="text-left small">
+                                    <span>Total</span>
+                                </td>
+                                <td class="text-right small">
+                                    <span t-esc="'{:,.3f}'.format(tot_debit)"/>
+
+                                </td>
+                                <td class="text-right small">
+                                    <span t-esc="'{:,.3f}'.format(tot_credit)"/>
+
+                                </td>
+                            </tr>
+                        </tfoot>
                     </table>
                     <div class="row small">
-                        <strong> Movement Reason:</strong>
-                            <p t-esc="o.ref"/>
+                        <strong>Movement Reason:</strong>
+                        <p t-esc="o.ref"/>
                     </div>
 
 

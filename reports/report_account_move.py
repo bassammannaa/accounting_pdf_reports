@@ -9,7 +9,8 @@ class AccountMovementReport(models.AbstractModel):
     _description = "Account Movement Report"
 
     def get_move_lines(self, docs):
-        account_move_lines_obj = self.env['account.move.line'].search([('move_id', '=', docs.id)], limit=100)
+        account_move_lines_obj = self.env['account.move.line'].search([('move_id', '=', docs.id)])
+        # account_move_lines_obj = self.env['account.move.line'].search([('move_id', 'in', (6893,24221))])
         account_move_lines = []
         for account_move_line in account_move_lines_obj:
             res = {
@@ -20,6 +21,9 @@ class AccountMovementReport(models.AbstractModel):
                 'office_name': account_move_line.office_branch.name,
                 'debit': account_move_line.debit,
                 'credit': account_move_line.credit,
+                'amount_currency': account_move_line.amount_currency if account_move_line.currency_id else abs(account_move_line.balance),
+                'rate': (account_move_line.amount_currency / account_move_line.balance_cash_basis) if account_move_line.balance_cash_basis > 0 else 1 ,
+                'currency_name': account_move_line.currency_id.name if account_move_line.currency_id else account_move_line.company_currency_id.name,
             }
             account_move_lines.append(res)
         return account_move_lines
