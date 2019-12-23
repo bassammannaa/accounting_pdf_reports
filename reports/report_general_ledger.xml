@@ -48,7 +48,7 @@
 
                     <table class="table table-sm table-hover table-bordered">
                         <thead>
-                            <tr class="text-center">
+                            <tr class="text-center small">
                                 <th class="text-left">Date</th>
                                 <th class="text-left">JRNL</th>
                                 <th class="text-left">Partner</th>
@@ -63,7 +63,7 @@
                         </thead>
                         <tbody>
                             <t t-foreach="Accounts" t-as="account">
-                                <tr style="font-weight: bold;">
+                                <tr style="small">
                                     <td colspan="6">
                                         <span t-esc="account['code']"/>
                                         <span t-esc="account['name']"/>
@@ -79,7 +79,7 @@
                                     </td>
                                     <td groups="base.group_multi_currency"/>
                                 </tr>
-                                <tr t-foreach="account['move_lines']" t-as="line">
+                                <tr style="small" t-foreach="account['move_lines']" t-as="line">
                                     <td class="text-left">
                                         <span t-esc="line['ldate']"/>
                                     </td>
