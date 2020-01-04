@@ -85,5 +85,15 @@
                 menu="True"
         />
 
+        <report
+                id="housemaidposting_action"
+                model="account.report.housemaidposting"
+                string="Housemaid Posting"
+                report_type="qweb-html"
+                name="accounting_pdf_reports.report_housemaidposting"
+                file="accounting_pdf_reports.report_housemaidposting"
+                menu="True"
+        />
+
     </data>
 </odoo>

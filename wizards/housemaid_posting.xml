@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="account_report_housemaidposting_view" model="ir.ui.view">
+        <field name="name">Housemaid Posting</field>
+        <field name="model">account.report.housemaidposting</field>
+        <field name="arch" type="xml">
+           <form string="Housemaid Posting">
+                <group>
+                    <group>
+                        <field name="from_date" attrs="{'readonly': [('application_comparison', '=', 'True')]}"/>
+                        <field name="to_date" attrs="{'readonly': [('application_comparison', '=', 'true')]}"/>
+                        <field name="link_to_application" attrs="{'readonly': [('application_comparison', '=', 'true')]}"/>
+
+                    </group>
+                    <group>
+                        <field name="selected_account" options="{'no_open': True, 'no_create': True, 'no_create_edit': 'True'}"/>
+                        <field name="posting_type" attrs="{'readonly': [('application_comparison', '=', 'true')]}"/>
+                        <field name="application_comparison"/>
+
+                    </group>
+                </group>
+
+                <footer>
+                    <button name="print_report" type="object" string="Print"
+                            class="oe_highlight"/>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_account_print_housemaidposting_menu" model="ir.actions.act_window">
+        <field name="name">Housemaid Posting</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">account.report.housemaidposting</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="account_report_housemaidposting_view"/>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem
+            id="menu_print_housemaidposting"
+            name="Housemaid Posting"
+            sequence="1"
+            parent="accounting_pdf_reports.menu_finance_legal_statement"
+            action="action_account_print_housemaidposting_menu"
+            groups="account.group_account_manager,account.group_account_user"
+    />
+
+</odoo>

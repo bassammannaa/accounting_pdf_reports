@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_housemaidposting">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <h2>Housemaid Posting</h2>
+                    <t t-if="comparison_flag == False">
+                        <div class="row">
+                            <table class="table table-sm small">
+                                <thead class="thead-light small">
+                                    <th class="text-left">Code</th>
+                                    <th class="text-left">Status</th>
+                                    <th class="text-left">Transaction Name</th>
+                                    <th class="text-left">Transaction Ref</th>
+                                    <th class="text-right">EQ Amount</th>
+                                    <th class="text-right">Credit Amount</th>
+                                    <th class="text-right">Debit Amount</th>
+                                    <th class="text-right">Balance Amount</th>
+                                </thead>
+                                <tbody>
+                                    <t t-set="tot_debit" t-value="0"/>
+                                    <t t-set="tot_credit" t-value="0"/>
+                                    <t t-set="tot_amount_currency" t-value="0"/>
+                                    <t t-set="tot_balance" t-value="0"/>
+                                    <t t-foreach="docs" t-as="doc">
+                                        <tr class="small">
+                                            <td class="text-left">
+                                                <span t-field="doc.application_id.external_office_id"/>
+                                            </td>
+                                            <td class="text-left">
+                                                <span t-field="doc.application_id.state"/>
+                                            </td>
+                                            <td class="text-left">
+                                                <span t-field="doc.move_id.name"/>
+                                            </td>
+                                            <td class="text-left">
+                                                <span t-field="doc.ref"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-esc="'{:,.3f}'.format(doc.amount_currency)"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-esc="'{:,.3f}'.format(doc.debit)"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-esc="'{:,.3f}'.format(doc.credit)"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-esc="'{:,.3f}'.format(doc.balance)"/>
+                                            </td>
+                                            <t t-set="tot_amount_currency"
+                                               t-value="tot_amount_currency+doc.amount_currency"/>
+                                            <t t-set="tot_debit" t-value="tot_debit+doc.debit"/>
+                                            <t t-set="tot_credit" t-value="tot_credit+doc.credit"/>
+                                            <t t-set="tot_balance" t-value="tot_balance+doc.balance"/>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="4" class="text-left small">
+                                            <span>Total</span>
+                                        </td>
+                                        <td class="text-right small">
+                                            <span t-esc="'{:,.3f}'.format(tot_amount_currency)"/>
+                                        </td>
+                                        <td class="text-right small">
+                                            <span t-esc="'{:,.3f}'.format(tot_debit)"/>
+                                        </td>
+                                        <td class="text-right small">
+                                            <span t-esc="'{:,.3f}'.format(tot_credit)"/>
+                                        </td>
+                                        <td class="text-right small">
+                                            <span t-esc="'{:,.3f}'.format(tot_balance)"/>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </t>
+                    <t t-if="comparison_flag == True">
+                        <div class="row">
+                            <table class="table table-sm small">
+                                <thead class="thead-light small">
+                                    <th class="text-left">Code</th>
+                                    <th class="text-left">Status</th>
+                                    <th class="text-right">Total Credit Amount</th>
+                                    <th class="text-right">Total Debit Amount</th>
+                                    <th class="text-right">Difference Amount</th>
+                                </thead>
+                                <tbody>
+                                    <t t-set="tot_debit" t-value="0"/>
+                                    <t t-set="tot_credit" t-value="0"/>
+                                    <t t-set="tot_balance" t-value="0"/>
+                                    <t t-foreach="docs_comparison" t-as="doc">
+                                        <tr class="small">
+                                            <td class="text-left">
+                                                <span t-esc="doc['office']"/>
+                                            </td>
+                                            <td class="text-left">
+                                                <span t-esc="doc['state']"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-esc="'{:,.3f}'.format(doc['total_debit'])"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-esc="'{:,.3f}'.format(doc['total_credit'])"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-esc="'{:,.3f}'.format(doc['total_balance'])"/>
+                                            </td>
+                                            <t t-set="tot_debit" t-value="tot_debit+doc['total_debit']"/>
+                                            <t t-set="tot_credit" t-value="tot_credit+doc['total_credit']"/>
+                                            <t t-set="tot_balance" t-value="tot_balance+doc['total_balance']"/>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                                <tfoot class="thead-light small">
+                                    <tr>
+                                        <td colspan="2" class="text-left small">
+                                            <span>Total</span>
+                                        </td>
+                                        <td class="text-right small">
+                                            <span t-esc="'{:,.3f}'.format(tot_debit)"/>
+                                        </td>
+                                        <td class="text-right small">
+                                            <span t-esc="'{:,.3f}'.format(tot_credit)"/>
+                                        </td>
+                                        <td class="text-right small">
+                                            <span t-esc="'{:,.3f}'.format(tot_balance)"/>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </t>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>
