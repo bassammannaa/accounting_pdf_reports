@@ -3,92 +3,119 @@
     <template id="report_partnerledger">
         <t t-call="web.html_container">
             <t t-set="data_report_landscape" t-value="True"/>
-            <t t-foreach="docs" t-as="o">
-                <t t-call="web.external_layout">
-                    <div class="page">
-                        <h2>Partner Ledger</h2>
 
-                        <div class="row">
-                            <div class="col-3">
-                                <strong>Company:</strong>
-                                <p t-esc="res_company.name"/>
-                            </div>
-                            <div class="col-3">
-                                <t t-if="data['form']['date_from']"><strong>Date from :</strong> <span t-esc="data['form']['date_from']"/><br/></t>
-                                <t t-if="data['form']['date_to']"><strong>Date to :</strong> <span t-esc="data['form']['date_to']"/></t>
-                            </div>
-                            <div class="col-3">
-                                <strong>Target Moves:</strong>
-                                <p t-if="data['form']['target_move'] == 'all'">All Entries</p>
-                                <p t-if="data['form']['target_move'] == 'posted'">All Posted Entries</p>
-                            </div>
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <h2>Partner Ledger</h2>
+
+                    <div class="row">
+                        <div class="col-3">
+                            <strong>Company:</strong>
+                            <p t-esc="res_company.name"/>
                         </div>
+                        <div class="col-3">
+                            <t t-if="data['form']['date_from']">
+                                <strong>Date from :</strong>
+                                <span t-esc="data['form']['date_from']"/>
+                                <br/>
+                            </t>
+                            <t t-if="data['form']['date_to']">
+                                <strong>Date to :</strong>
+                                <span t-esc="data['form']['date_to']"/>
+                            </t>
+                        </div>
+                        <div class="col-3">
+                            <strong>Target Moves:</strong>
+                            <p t-if="data['form']['target_move'] == 'all'">All Entries</p>
+                            <p t-if="data['form']['target_move'] == 'posted'">All Posted Entries</p>
+                        </div>
+                        <div class="col-3">
+                            <strong>Scope:</strong>
+                            <p t-if="detailed == 0">Without Details</p>
+                            <p t-if="detailed != 0">With Details</p>
+                        </div>
+                    </div>
 
-                        <table class="table table-sm table-hover table-bordered">
-                            <thead class="small">
-                                <tr>
-                                    <th>Date</th>
-                                    <th>JRNL</th>
-                                    <th>Account</th>
-                                    <th>Ref</th>
-                                    <th class="text-right">Debit (KWD)</th>
-                                    <th class="text-right">Credit (KWD)</th>
-                                    <th class="text-right">Balance (KWD)</th>
-                                    <th class="text-right" t-if="data['form']['amount_currency']">Currency (USD)</th>
-                                </tr>
-                            </thead>
+                    <table class="table table-sm table-hover table-bordered">
+                        <thead class="small">
+                            <tr>
+                                <th>Date</th>
+                                <th>JRNL</th>
+                                <th>Account</th>
+                                <th class="text-right">Debit (KWD)</th>
+                                <th class="text-right">Credit (KWD)</th>
+                                <th class="text-right">Balance (KWD)</th>
+                                <th class="text-right" t-if="data['form']['amount_currency']">Currency (USD)</th>
+                            </tr>
+                        </thead>
+                        <t t-foreach="docs" t-as="o">
                             <tbody>
                                 <tr style="small">
-                                    <td colspan="4">
-                                            <strong t-esc="o.name"/>
+                                    <td colspan="3">
+                                        <strong>Sponsor Name:</strong>
+                                        <span t-esc="o.name"/>
                                     </td>
                                     <td class="text-right">
-                                        <strong t-esc="'{:,.3f}'.format(sum_partner(data, o, 'debit'))"/>
+                                        <span t-esc="'{:,.3f}'.format(sum_partner(data, o, 'debit'))"/>
                                     </td>
                                     <td class="text-right">
-                                        <strong t-esc="'{:,.3f}'.format(sum_partner(data, o, 'credit'))"/>
+                                        <span t-esc="'{:,.3f}'.format(sum_partner(data, o, 'credit'))"/>
                                     </td>
                                     <td class="text-right">
-                                        <strong t-esc="'{:,.3f}'.format(sum_partner(data, o, 'debit - credit'))"/>
+                                        <span t-esc="'{:,.3f}'.format(sum_partner(data, o, 'debit - credit'))"/>
                                     </td>
                                     <td class="text-right">
-                                        <strong t-esc="'{:,.2f}'.format(sum_partner(data, o, 'amount_currency'))"/>
+                                        <span t-esc="'{:,.2f}'.format(sum_partner(data, o, 'amount_currency'))"/>
                                     </td>
 
                                 </tr>
-                                <tr class="small" t-foreach="lines(data, o)" t-as="line">
-                                    <td>
-                                        <span t-esc="line['date']"/>
-                                    </td>
-                                    <td>
-                                        <span t-esc="line['code']"/>
-                                    </td>
-                                    <td>
-                                        <span t-esc="line['a_code']"/>
-                                    </td>
-                                    <td>
-                                        <span t-esc="line['displayed_name']"/>
-                                    </td>
-                                    <td class="text-right">
-                                        <span t-esc="'{:,.3f}'.format(line['debit'])"/>
-                                    </td>
-                                    <td class="text-right">
-                                        <span t-esc="'{:,.3f}'.format(line['credit'])" />
-                                    </td>
-                                    <td class="text-right">
-                                        <span t-esc="'{:,.3f}'.format(line['progress'])" />
-                                    </td>
-                                    <td class="text-right" t-if="data['form']['amount_currency']">
-                                        <t t-if="line['currency_id']">
-                                          <span t-esc="'{:,.2f}'.format(line['amount_currency'])" />
-                                        </t>
-                                    </td>
-                                </tr>
+                                <t t-if="detailed != 0">
+                                    <t t-foreach="lines(data, o)" t-as="line">
+                                        <tr class="small">
+                                            <td colspan="7">
+                                                <strong>Transaction Name: </strong><span t-esc="line['displayed_name']"/>
+                                            </td>
+                                        </tr>
+                                        <tr class="small">
+                                            <td>
+                                                <span t-esc="line['date']"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="line['code']"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="line['a_code']"/>
+                                            </td>
+
+                                            <td class="text-right">
+                                                <span t-esc="'{:,.3f}'.format(line['debit'])"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-esc="'{:,.3f}'.format(line['credit'])"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-esc="'{:,.3f}'.format(line['progress'])"/>
+                                            </td>
+                                            <td class="text-right" t-if="data['form']['amount_currency']">
+                                                <t t-if="line['currency_id']">
+                                                    <span t-esc="'{:,.2f}'.format(line['amount_currency'])"/>
+                                                </t>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="7"></td>
+                                        </tr>
+                                    </t>
+
+
+                                </t>
                             </tbody>
-                        </table>
-                    </div>
-                </t>
+                        </t>
+                    </table>
+
+                </div>
             </t>
+
         </t>
     </template>
 </odoo>

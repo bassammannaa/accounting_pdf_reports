@@ -19,6 +19,8 @@ class AccountPartnerLedger(models.TransientModel):
                                                domain=[('is_company','=', True)])
     selected_account = fields.Many2one(comodel_name="account.account", string="Account",
                                        required=False, )
+    detailed = fields.Boolean(string="Detailed Data", default=True, )
+
 
     def _print_report(self, data):
         data = self.pre_print_report(data)
@@ -28,6 +30,7 @@ class AccountPartnerLedger(models.TransientModel):
              'partner_sponsor': self.partner_sponsor.id,
              'partner_external_offfice': self.partner_external_offfice.id,
              'selected_account': self.selected_account.id if self.selected_account else 0,
+             'detailed': self.detailed,
              }
         )
         return self.env.ref('accounting_pdf_reports.action_report_partnerledger').report_action(self, data=data)

@@ -104,6 +104,8 @@ class ReportPartnerLedger(models.AbstractModel):
         else:
             data['computed']['account_ids'] = [a for (a,) in self.env.cr.fetchall()]
 
+        detailed_value = data['form'].get('detailed', True)
+
         params = [tuple(data['computed']['move_state']), tuple(data['computed']['account_ids'])] + query_get_data[2]
         reconcile_clause = "" if data['form']['reconciled'] else ' AND "account_move_line".full_reconcile_id IS NULL '
         query = """
@@ -136,6 +138,7 @@ class ReportPartnerLedger(models.AbstractModel):
             'doc_model': self.env['res.partner'],
             'data': data,
             'docs': partners,
+            'detailed': 1 if detailed_value else 0,
             'time': time,
             'lines': self._lines,
             'sum_partner': self._sum_partner,

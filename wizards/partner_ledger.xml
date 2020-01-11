@@ -11,7 +11,7 @@
                     <field name="result_selection"/>
                     <field name="amount_currency" groups="base.group_multi_currency"/>
                     <field name="reconciled"/>
-
+                    <field name="detailed"/>
                     <newline/>
                     <field name="partner_sponsor" attrs="{'invisible': [('result_selection','=','supplier')]}"/>
                     <field name="selected_account"/>
