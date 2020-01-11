@@ -10,8 +10,6 @@
 
                     <div class="row mt32">
                         <div class="col-4">
-<!--                            <strong>Journals:</strong>-->
-<!--                            <p t-esc="', '.join([ lt or '' for lt in print_journal ])"/>-->
                         </div>
                         <div class="col-4">
                             <strong>Display Account</strong>
@@ -50,11 +48,9 @@
                         <thead>
                             <tr class="text-center small">
                                 <th class="text-left">Date</th>
+                                <th class="text-left">Move</th>
                                 <th class="text-left">JRNL</th>
                                 <th class="text-left">Partner</th>
-                                <th class="text-left">Ref</th>
-                                <th class="text-left">Move</th>
-                                <th class="text-left">Entry Label</th>
                                 <th class="text-right">Debit (KWD)</th>
                                 <th class="text-right">Credit (KWD)</th>
                                 <th class="text-right">Balance (KWD)</th>
@@ -63,55 +59,71 @@
                         </thead>
                         <tbody>
                             <t t-foreach="Accounts" t-as="account">
-                                <tr style="small">
-                                    <td colspan="6">
-                                        <span t-esc="account['code']"/>
-                                        <span t-esc="account['name']"/>
+                                <tr class="small">
+                                    <td colspan="4">
+                                        <u>
+                                            <b>Account :</b>
+                                            <span t-esc="account['code']"/>
+                                            -
+                                            <span t-esc="account['name']"/>
+                                        </u>
                                     </td>
-                                    <td class="text-right">
-                                        <span t-esc="'{:,.3f}'.format(account['debit'])"/>
+                                    <td class="text-right small">
+                                        <u><b><span t-esc="'{:,.3f}'.format(account['debit'])"/></b></u>
                                     </td>
-                                    <td class="text-right">
-                                        <span t-esc="'{:,.3f}'.format(account['credit'])"/>
+                                    <td class="text-right small">
+                                        <u><b><span t-esc="'{:,.3f}'.format(account['credit'])"/></b></u>
                                     </td>
-                                    <td class="text-right">
-                                        <span t-esc="'{:,.3f}'.format(account['balance'])"/>
+                                    <td class="text-right small">
+                                        <u><b><span t-esc="'{:,.3f}'.format(account['balance'])"/></b></u>
                                     </td>
                                     <td groups="base.group_multi_currency"/>
                                 </tr>
-                                <tr style="small" t-foreach="account['move_lines']" t-as="line">
-                                    <td class="text-left">
-                                        <span t-esc="line['ldate']"/>
-                                    </td>
-                                    <td>
-                                        <span class="text-left" t-esc="line['lcode']"/>
-                                    </td>
-                                    <td class="text-left">
-                                        <span t-esc="line['partner_name']"/>
-                                    </td>
-                                    <td class="text-left">
-                                        <span t-if="line['lref']" t-esc="line['lref']"/>
-                                    </td>
-                                    <td class="text-left">
-                                        <span t-esc="line['move_name']"/>
-                                    </td>
-                                    <td class="text-left">
-                                        <span t-esc="line['lname']"/>
-                                    </td>
-                                    <td class="text-right">
-                                        <span t-esc="'{:,.3f}'.format(line['debit'])"/>
-                                    </td>
-                                    <td class="text-right">
-                                        <span t-esc="'{:,.3f}'.format(line['credit'])"/>
-                                    </td>
-                                    <td class="text-right">
-                                        <span t-esc="'{:,.3f}'.format(line['balance'])"/>
-                                    </td>
-                                    <td class="text-right" groups="base.group_multi_currency">
-                                        <span t-esc="'{:,.2f}'.format(line['amount_currency']) if line['amount_currency'] > 0.00 else ''"/>
-                                        <span t-esc="line['currency_code'] if line['amount_currency'] > 0.00 else ''"/>
-                                    </td>
-                                </tr>
+                                <t t-foreach="account['move_lines']" t-as="line">
+                                    <tr class="small">
+                                        <td class="text-left small" colspan="8">
+                                            <b>Ref :</b>
+                                            <span t-if="line['lref']" t-esc="line['lref']"/>
+                                        </td>
+                                    </tr>
+                                    <tr class="small">
+                                        <td class="text-left small" colspan="8">
+                                            <b>Entry Label :</b>
+                                            <span t-esc="line['lname']"/>
+                                        </td>
+                                    </tr>
+                                    <tr style="small">
+                                        <td class="text-left small">
+                                            <span t-esc="line['ldate']"/>
+                                        </td>
+                                        <td class="text-left small">
+                                            <span t-esc="line['move_name']"/>
+                                        </td>
+                                        <td class="text-left small">
+                                            <span class="text-left" t-esc="line['lcode']"/>
+                                        </td>
+                                        <td class="text-left small">
+                                            <span t-esc="line['partner_name']"/>
+                                        </td>
+                                        <td class="text-right small">
+                                            <span t-esc="'{:,.3f}'.format(line['debit'])"/>
+                                        </td>
+                                        <td class="text-right small">
+                                            <span t-esc="'{:,.3f}'.format(line['credit'])"/>
+                                        </td>
+                                        <td class="text-right small">
+                                            <span t-esc="'{:,.3f}'.format(line['balance'])"/>
+                                        </td>
+                                        <td class="text-right small" groups="base.group_multi_currency">
+                                            <span t-esc="'{:,.2f}'.format(line['amount_currency']) if line['amount_currency'] > 0.00 else ''"/>
+                                            <span t-esc="line['currency_code'] if line['amount_currency'] > 0.00 else ''"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="8">
+                                        </td>
+                                    </tr>
+                                </t>
                             </t>
                         </tbody>
                     </table>
