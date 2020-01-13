@@ -36,6 +36,7 @@
         'reports/report_financial.xml',
         'reports/report_tax.xml',
         'reports/report_account_move.xml',
+        'reports/report_accounts_balances.xml',
         'reports/report_aged_partner.xml',
         'reports/report_journal_audit.xml',
         'reports/report_housemaidposting.xml',

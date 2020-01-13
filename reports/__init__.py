@@ -9,6 +9,7 @@ from . import report_journal
 from . import report_financial
 from . import report_account_move
 from . import report_housemaidposting
+from . import report_accounts_balances
 
 
 

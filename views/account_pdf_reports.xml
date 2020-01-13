@@ -5,6 +5,11 @@
         <menuitem id="menu_finance_legal_statement"
                   name="PDF Reports"
                   parent="account.menu_finance_reports"/>
+        <menuitem id="menu_account_balances_reports"
+                  name="Accounts Balances"
+                  action="action_report_accounts_balances"
+                  groups="account.group_account_user"
+                  parent="menu_finance_legal_statement"/>
 
     </data>
 </odoo>

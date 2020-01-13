@@ -3,77 +3,88 @@
     <data>
 
         <report
-            id="action_report_general_ledger"
-            model="account.report.general.ledger"
-            string="General Ledger"
-            report_type="qweb-html"
-            name="accounting_pdf_reports.report_generalledger"
-            file="accounting_pdf_reports.report_generalledger"
-            />
-<!--        <report-->
-<!--            id="action_report_general_ledger_xls"-->
-<!--            model="account.report.general.ledger"-->
-<!--            string="General Ledger Excel"-->
-<!--            report_type="xlsx"-->
-<!--            name="accounting_pdf_reports.report_generalledger_xls"-->
-<!--            file="accounting_pdf_reports.report_generalledger_xls"-->
-<!--            />-->
+                id="action_report_general_ledger"
+                model="account.report.general.ledger"
+                string="General Ledger"
+                report_type="qweb-html"
+                name="accounting_pdf_reports.report_generalledger"
+                file="accounting_pdf_reports.report_generalledger"
+        />
+        <report
+                id="action_report_accounts_balances"
+                model="account.report.report_accounts_balances"
+                string="Accounts Balances"
+                report_type="qweb-html"
+                name="accounting_pdf_reports.report_accounts_balances"
+                file="accounting_pdf_reports.report_accounts_balances"
+                menu="False"
+        />
+
+
+        <!--        <report-->
+        <!--            id="action_report_general_ledger_xls"-->
+        <!--            model="account.report.general.ledger"-->
+        <!--            string="General Ledger Excel"-->
+        <!--            report_type="xlsx"-->
+        <!--            name="accounting_pdf_reports.report_generalledger_xls"-->
+        <!--            file="accounting_pdf_reports.report_generalledger_xls"-->
+        <!--            />-->
 
         <report
-            id="action_report_partnerledger"
-            model="account.report.partner.ledger"
-            string="Partner Ledger"
-            report_type="qweb-html"
-            name="accounting_pdf_reports.report_partnerledger"
-            file="accounting_pdf_reports.report_partnerledger"
-            />
-
-        <report
-            id="action_report_trial_balance"
-            model="account.balance.report"
-            string="Trial Balance"
-            report_type="qweb-html"
-            name="accounting_pdf_reports.report_trialbalance"
-            file="accounting_pdf_reports.report_trialbalance"
-            />
-
-        <report
-            id="action_report_financial"
-            model="account.financial.report"
-            string="Financial report"
-            menu="False"
-            report_type="qweb-html"
-            name="accounting_pdf_reports.report_financial"
-            file="accounting_pdf_reports.report_financial"
-            />
-
-        <report
-            id="action_report_account_tax"
-            model="account.tax.report"
-            string="Tax Report"
-            report_type="qweb-html"
-            name="accounting_pdf_reports.report_tax"
-            file="accounting_pdf_reports.report_tax"
-            />
-
-        <report
-            id="action_report_aged_partner_balance"
-            model="res.partner"
-            string="Aged Partner Balance"
-            menu="False"
-            report_type="qweb-html"
-            name="accounting_pdf_reports.report_agedpartnerbalance"
-            file="accounting_pdf_reports.report_agedpartnerbalance"
+                id="action_report_partnerledger"
+                model="account.report.partner.ledger"
+                string="Partner Ledger"
+                report_type="qweb-html"
+                name="accounting_pdf_reports.report_partnerledger"
+                file="accounting_pdf_reports.report_partnerledger"
         />
 
         <report
-            id="action_report_journal"
-            model="account.common.journal.report"
-            string="Journals Audit"
-            report_type="qweb-html"
-            name="accounting_pdf_reports.report_journal"
-            file="accounting_pdf_reports.report_journal"
-            />
+                id="action_report_trial_balance"
+                model="account.balance.report"
+                string="Trial Balance"
+                report_type="qweb-html"
+                name="accounting_pdf_reports.report_trialbalance"
+                file="accounting_pdf_reports.report_trialbalance"
+        />
+
+        <report
+                id="action_report_financial"
+                model="account.financial.report"
+                string="Financial report"
+                menu="False"
+                report_type="qweb-html"
+                name="accounting_pdf_reports.report_financial"
+                file="accounting_pdf_reports.report_financial"
+        />
+
+        <report
+                id="action_report_account_tax"
+                model="account.tax.report"
+                string="Tax Report"
+                report_type="qweb-html"
+                name="accounting_pdf_reports.report_tax"
+                file="accounting_pdf_reports.report_tax"
+        />
+
+        <report
+                id="action_report_aged_partner_balance"
+                model="res.partner"
+                string="Aged Partner Balance"
+                menu="False"
+                report_type="qweb-html"
+                name="accounting_pdf_reports.report_agedpartnerbalance"
+                file="accounting_pdf_reports.report_agedpartnerbalance"
+        />
+
+        <report
+                id="action_report_journal"
+                model="account.common.journal.report"
+                string="Journals Audit"
+                report_type="qweb-html"
+                name="accounting_pdf_reports.report_journal"
+                file="accounting_pdf_reports.report_journal"
+        />
 
         <report
                 id="report_account_move_action"
