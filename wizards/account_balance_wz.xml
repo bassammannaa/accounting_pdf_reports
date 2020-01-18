@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="account_report_accountbalancewz_view" model="ir.ui.view">
+        <field name="name">Account Balance</field>
+        <field name="model">account.report.account_balance_wz</field>
+        <field name="arch" type="xml">
+           <form string="Housemaid Posting">
+                <group>
+                    <group>
+                        <field name="as_of_date"/>
+                    </group>
+                    <group>
+                        <field name="account_type" options="{'no_open': True, 'no_create': True, 'no_create_edit': 'True'}"/>
+                    </group>
+                </group>
+
+                <footer>
+                    <button name="print_report" type="object" string="Print"
+                            class="oe_highlight"/>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_account_print_accountbalancewz_menu" model="ir.actions.act_window">
+        <field name="name">Account Balance</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">account.report.account_balance_wz</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="account_report_accountbalancewz_view"/>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem
+            id="menu_print_accountbalancewz"
+            name="Accounts Balances"
+            sequence="1"
+            parent="accounting_pdf_reports.menu_finance_legal_statement"
+            action="action_account_print_accountbalancewz_menu"
+            groups="account.group_account_manager,account.group_account_user"
+    />
+
+</odoo>

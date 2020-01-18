@@ -5,11 +5,22 @@
             <t t-set="data_report_landscape" t-value="True"/>
             <t t-call="web.external_layout">
                 <div class="page">
-                    <h2><span t-esc="res_company.name"/>: Accounts Balances
-                    </h2>
+                    <div class="text-center">
+                        <h3>
+                            <strong>Accounts Balances Report</strong>
+                        </h3>
+                        <br/>
+                        <b>
+                            <i>
+                                <t t-esc="title"/>
+                            </i>
+                        </b>
+                    </div>
+                    <br></br>
+
                     <table class="table table-sm table-hover table-bordered">
                         <thead>
-                            <tr class="text-center small">
+                            <tr class="text-center">
                                 <th class="text-left">Account Type</th>
                                 <th class="text-left">Currency</th>
                                 <th class="text-right">Total Debit</th>
@@ -20,28 +31,64 @@
                         <tbody>
                             <t t-foreach="docs" t-as="doc">
                                 <tr class="small">
-                                    <td class="text-left small">
-                                        <span t-esc="doc.account_type"/>
+                                    <td class="text-left">
+                                        <b>
+                                            <u>
+                                                <span t-esc="doc['account_type']"/>
+                                            </u>
+                                        </b>
                                     </td>
-                                    <td class="text-left small">
-                                        <span t-esc="doc.account_type"/>
+                                    <td class="text-left">
+                                        <b>
+                                            <u>
+                                                <span t-esc="doc['currency_name']"/>
+                                            </u>
+                                        </b>
                                     </td>
-                                    <td class="text-left small">
-                                        <span t-esc="doc.currency_name"/>
+                                    <td class="text-right">
+                                        <b>
+                                            <u>
+                                                <span t-esc="'{:,.2f}'.format(doc['tot_debit_usd']) if doc['currency_name'] == 'USD' else '{:,.3f}'.format(doc['tot_debit_kd'])"/>
+                                            </u>
+                                        </b>
                                     </td>
-                                    <td class="text-left small">
-                                        <span t-esc="doc.tot_debit"/>
+                                    <td class="text-right">
+                                        <b>
+                                            <u>
+                                                <span t-esc="'{:,.2f}'.format(doc['tot_credit_usd']) if doc['currency_name'] == 'USD' else '{:,.3f}'.format(doc['tot_credit_kd'])"/>
+                                            </u>
+                                        </b>
                                     </td>
-                                    <td class="text-left small">
-                                        <span t-esc="doc.tot_credit"/>
-                                    </td>
-                                    <td class="text-left small">
-                                        <span t-esc="doc.balance"/>
+                                    <td class="text-right">
+                                        <b>
+                                            <u>
+                                                <span t-esc="'{:,.2f}'.format(doc['balance_usd']) if doc['currency_name'] == 'USD' else '{:,.3f}'.format(doc['balance_kd'])"/>
+                                            </u>
+                                        </b>
                                     </td>
                                 </tr>
+                                <t t-foreach="get_detailed_data(doc['account_type_id'],doc['currency_id'],doc['as_of_date'])"
+                                   t-as="detail_line">
+                                    <tr class="small">
+                                        <td class="text-left" colspan="2">
+                                            <span t-esc="detail_line['account_code']"/>-
+                                            <span t-esc="detail_line['account_name']"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-esc="'{:,.2f}'.format(detail_line['tot_debit_usd']) if detail_line['currency_name'] == 'USD' else '{:,.3f}'.format(detail_line['tot_debit_kd'])"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-esc="'{:,.2f}'.format(detail_line['tot_credit_usd']) if detail_line['currency_name'] == 'USD' else '{:,.3f}'.format(detail_line['tot_credit_kd'])"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-esc="'{:,.2f}'.format(detail_line['balance_usd']) if detail_line['currency_name'] == 'USD' else '{:,.3f}'.format(detail_line['balance_kd'])"/>
+                                        </td>
+                                    </tr>
+                                </t>
                             </t>
                         </tbody>
                     </table>
+
                 </div>
             </t>
         </t>

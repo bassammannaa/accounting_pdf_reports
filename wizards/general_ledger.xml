@@ -37,7 +37,7 @@
         <field name="target">new</field>
         <field name="binding_model_id" ref="account.model_account_account"/>
         <field name="binding_type">report</field>
-        <field name="context" eval="{'default_date_from': datetime.strftime(datetime.now()-timedelta(days=30),'%Y-%m-%d'),
+        <field name="context" eval="{'default_date_from': datetime.strftime(datetime.now()-timedelta(days=0),'%Y-%m-%d'),
         'default_date_to': datetime.strftime(datetime.now(),'%Y-%m-%d')}"/>
 
     </record>

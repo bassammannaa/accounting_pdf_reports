@@ -11,3 +11,4 @@ from . import account_tax_report
 from . import aged_partner
 from . import account_journal_audit
 from . import housemaid_posting
+from . import account_balance_wz
