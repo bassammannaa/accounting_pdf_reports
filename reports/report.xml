@@ -94,6 +94,15 @@
                 file="accounting_pdf_reports.report_accounts_balances"
                 menu="False"
         />
+        <report
+                id="cash_movement_action"
+                model="account.report.cash_movement"
+                string="Cash Movement"
+                report_type="qweb-html"
+                name="accounting_pdf_reports.report_cashmovement"
+                file="accounting_pdf_reports.report_cashmovement"
+                menu="True"
+        />
 
     </data>
 </odoo>

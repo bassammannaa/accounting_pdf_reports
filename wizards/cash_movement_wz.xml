@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="account_report_cash_movement_view" model="ir.ui.view">
+        <field name="name">Cash Movement</field>
+        <field name="model">account.report.cash_movement</field>
+        <field name="arch" type="xml">
+           <form string="Cash Movement">
+                <group>
+                    <group>
+                        <field name="from_date"/>
+
+                    </group>
+                    <group>
+                        <field name="to_date"/>
+
+                    </group>
+                </group>
+
+                <footer>
+                    <button name="print_report" type="object" string="Print"
+                            class="oe_highlight"/>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_account_print_cashmovement_action" model="ir.actions.act_window">
+        <field name="name">Cash Movement</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">account.report.cash_movement</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="account_report_cash_movement_view"/>
+        <field name="target">new</field>
+        <field name="context" eval="{'default_from_date': datetime.strftime(datetime.now()-timedelta(days=0),'%Y-%m-%d'),
+        'default_to_date': datetime.strftime(datetime.now(),'%Y-%m-%d')}"/>
+    </record>
+
+    <menuitem
+            id="menu_print_cash_movement"
+            name="Cash Movement"
+            sequence="1"
+            parent="accounting_pdf_reports.menu_finance_legal_statement"
+            action="action_account_print_cashmovement_action"
+            groups="account.group_account_manager,account.group_account_user"
+    />
+
+</odoo>

@@ -30,6 +30,7 @@
         'wizards/journal_audit.xml',
         'wizards/housemaid_posting.xml',
         'wizards/account_balance_wz.xml',
+        'wizards/cash_movement_wz.xml',
         'reports/report.xml',
         'reports/report_partner_ledger.xml',
         'reports/report_general_ledger.xml',
@@ -42,6 +43,8 @@
         'reports/report_journal_audit.xml',
         'reports/report_housemaidposting.xml',
         'reports/report_accounts_balances.xml',
+        'reports/report_cashmovement.xml',
+
     ],
     'installable': True,
     'application': False,

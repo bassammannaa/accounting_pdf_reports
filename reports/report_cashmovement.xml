@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_cashmovement">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <h2>Cash Movement Posting</h2>
+                    <div class="row">
+                        <table class="table table-sm table-hover table-bordered">
+                            <thead class="small">
+                                <th class="text-left">Transaction Date</th>
+                                <th class="text-left">Code</th>
+                                <th class="text-left">Transaction Ref.</th>
+                                <th class="text-left">Sponsor Name</th>
+                                <th class="text-right">Cash In</th>
+                                <th class="text-right">Cash Out</th>
+                            </thead>
+                            <tbody>
+                                <t t-set="tot_cash_in" t-value="0"/>
+                                <t t-set="tot_cash_out" t-value="0"/>
+                                <t t-foreach="docs" t-as="doc">
+                                    <tr>
+                                        <td class="text-left" colspan="6">
+                                            <b>Cash Box :</b>
+                                            <span t-esc="doc['account_name']"/>
+                                        </td>
+                                    </tr>
+                                    <t t-foreach="detail_data(doc['account_id'],doc['from_date'],doc['to_date'])"
+                                       t-as="detail_line">
+                                        <tr class="small">
+                                            <td class="text-left">
+                                                <span t-esc="detail_line['tran_date']"/>
+                                            </td>
+                                            <td class="text-left">
+                                                <span t-esc="detail_line['external_office_id']"/>
+                                            </td>
+                                            <td class="text-left">
+                                                <span t-esc="detail_line['tran_ref']"/>
+                                            </td>
+                                            <td class="text-left">
+                                                <span t-esc="detail_line['sponsor']"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-esc="'{:,.3f}'.format(detail_line['cash_in'])"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-esc="'{:,.3f}'.format(detail_line['cash_out'])"/>
+                                            </td>
+                                            <t t-set="tot_cash_in" t-value="tot_cash_in+detail_line['cash_in']"/>
+                                            <t t-set="tot_cash_out" t-value="tot_cash_out+detail_line['cash_out']"/>
+                                        </tr>
+
+                                    </t>
+                                    <tr>
+                                        <td class="text-left" colspan="4">
+                                            <b>Total For Account :</b>
+                                            <span t-esc="doc['account_name']"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-esc="'{:,.3f}'.format(tot_cash_in)"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-esc="'{:,.3f}'.format(tot_cash_out)"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                            <!--                                <tfoot>-->
+                            <!--                                    <tr>-->
+                            <!--                                        <td colspan="4" class="text-left">-->
+                            <!--                                            <span>Total</span>-->
+                            <!--                                        </td>-->
+                            <!--                                        <td class="text-right">-->
+                            <!--                                            <span t-esc="'{:,.3f}'.format(tot_amount_currency)"/>-->
+                            <!--                                        </td>-->
+                            <!--                                        <td class="text-right">-->
+                            <!--                                            <span t-esc="'{:,.3f}'.format(tot_debit)"/>-->
+                            <!--                                        </td>-->
+                            <!--                                        <td class="text-right">-->
+                            <!--                                            <span t-esc="'{:,.3f}'.format(tot_credit)"/>-->
+                            <!--                                        </td>-->
+                            <!--                                        <td class="text-right">-->
+                            <!--                                            <span t-esc="'{:,.3f}'.format(tot_balance)"/>-->
+                            <!--                                        </td>-->
+                            <!--                                    </tr>-->
+                            <!--                                </tfoot>-->
+                        </table>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

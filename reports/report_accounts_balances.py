@@ -50,8 +50,6 @@ class ReportAccountBalances(models.AbstractModel):
                     group by 
                         c.code, c.name, c.currency_id,d.name,d.id,d.rounding""" %(account_type_id, currency_id, as_of_date))
 
-            if sql == '':
-                ss = ''
 
             self.env.cr.execute(sql)
             for row in self.env.cr.fetchall():
