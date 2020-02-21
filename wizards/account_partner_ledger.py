@@ -20,6 +20,8 @@ class AccountPartnerLedger(models.TransientModel):
     selected_account = fields.Many2one(comodel_name="account.account", string="Account",
                                        required=False, )
     detailed = fields.Boolean(string="Detailed Data", default=True, )
+    report_generation = fields.Selection(string="Report Generation", selection=[('pdf', 'PDF'), ('excel', 'Excel'), ],
+                                         default='excel', required=False, )
 
 
     def _print_report(self, data):
@@ -31,6 +33,11 @@ class AccountPartnerLedger(models.TransientModel):
              'partner_external_offfice': self.partner_external_offfice.id,
              'selected_account': self.selected_account.id if self.selected_account else 0,
              'detailed': self.detailed,
+             'report_generation': self.report_generation,
              }
         )
-        return self.env.ref('accounting_pdf_reports.action_report_partnerledger').report_action(self, data=data)
+        if self.report_generation == 'pdf':
+            return self.env.ref('accounting_pdf_reports.action_report_partnerledger').report_action(self, data=data)
+        else:
+            return self.env.ref('accounting_pdf_reports.action_report_partnerledger_excel').report_action(self, data=data)
+

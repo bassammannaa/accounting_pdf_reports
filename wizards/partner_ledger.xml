@@ -8,17 +8,24 @@
         <field name="arch" type="xml">
             <data>
                 <xpath expr="//field[@name='target_move']" position="after">
+                    <field name="report_generation" widget="radio"/>
+                    <separator string="Generation Scope" colspan="2"/>
+                    <newline/>
                     <field name="result_selection"/>
+                    <field name="selected_account"/>
+                    <field name="partner_sponsor" attrs="{'invisible': [('result_selection','=','supplier')]}"/>
+                    <field name="partner_external_offfice"
+                           attrs="{'invisible': [('result_selection','=','customer')]}"/>
+
+                    <separator string="Generation Details" colspan="2"/>
+                    <newline/>
+
+
                     <field name="amount_currency" groups="base.group_multi_currency"/>
                     <field name="reconciled"/>
                     <field name="detailed"/>
                     <newline/>
-                    <field name="partner_sponsor" attrs="{'invisible': [('result_selection','=','supplier')]}"/>
-                    <field name="selected_account"/>
-                    <newline/>
-                    <field name="partner_external_offfice"
-                           attrs="{'invisible': [('result_selection','=','customer')]}"/>
-                    <newline/>
+
 
                 </xpath>
                 <xpath expr="//field[@name='date_from']" position="attributes">
