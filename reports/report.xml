@@ -25,7 +25,7 @@
                 string="Excel Report"
                 report_type="xlsx"
                 name="accounting_pdf_reports.report_partnerledger_excel"
-                file="accounting_pdf_reports.report_partnerledger_excel"
+                file="Partners Ledger"
                 attachment="(object.report_id.report_name)"
                 print_report_name="(object.report_id.report_name)"/>
 
@@ -105,6 +105,18 @@
                 file="accounting_pdf_reports.report_accounts_balances"
                 menu="False"
         />
+        <report
+                id="action_report_accounts_balances_excel"
+                model="account.move.line"
+                string="Accounts Balances Excel"
+                report_type="xlsx"
+                name="accounting_pdf_reports.report_accounts_balances_excel"
+                file="Accounts Balances"
+                menu="False"
+                attachment="(object.report_id.report_name)"
+                print_report_name="(object.report_id.report_name)"/>
+
+
         <report
                 id="cash_movement_action"
                 model="account.report.cash_movement"

@@ -282,15 +282,17 @@ class PartnerLedgerReportXlsx(models.AbstractModel):
             return date
 
         # Pre-Format
-        header_line_format_string = workbook.add_format({'bold': True, 'left': 1, 'font_size': 12, 'text_wrap': 0})
-        header_line_format_num = workbook.add_format({'bold': True, 'right': 1, 'font_size': 12, 'text_wrap': 0})
+        header_line_format_string = workbook.add_format({'bold': True, 'left': 1, 'font_size': 12, 'text_wrap': 0, 'bg_color': '#e7e3e2'})
+        header_line_format_num = workbook.add_format({'bold': True, 'right': 1, 'font_size': 12, 'text_wrap': 0, 'bg_color': '#e7e3e2'})
 
         normal_line_format_string_nowrap = workbook.add_format({'bold': False, 'left': 1, 'font_size': 10, 'text_wrap': 0})
         normal_line_format_string_wrap = workbook.add_format(
             {'bold': False, 'left': 1, 'font_size': 10, 'text_wrap': 1})
 
-        normal_line_format_num_KWD = workbook.add_format({'bold': False, 'right': 1, 'font_size': 10, 'text_wrap': 0, 'num_format': 3})
-        normal_line_format_num_USD = workbook.add_format({'bold': False, 'right': 1, 'font_size': 10, 'text_wrap': 0, 'num_format': 2})
+        normal_line_format_num_KWD = workbook.add_format(
+            {'bold': False, 'right': 1, 'font_size': 10, 'text_wrap': 0, 'num_format': '#,##0.000'})
+        normal_line_format_num_USD = workbook.add_format(
+            {'bold': False, 'right': 1, 'font_size': 10, 'text_wrap': 0, 'num_format': '#,##0.00'})
 
 
         # Data Object
