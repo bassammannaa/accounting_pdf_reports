@@ -13,8 +13,8 @@ class HousemaidPosting(models.TransientModel):
     _name = "account.report.housemaidposting"
     _description = "Housemaid Posting"
 
-    from_date = fields.Date(string="Transactions From Date")
-    to_date = fields.Date(string="Transactions To Date")
+    from_date = fields.Date(string="From Date")
+    to_date = fields.Date(string="To Date")
     selected_account = fields.Many2one(comodel_name="account.account", string="Account",
                                        required=True, )
     posting_type = fields.Selection(string="Posting Type",
@@ -22,6 +22,8 @@ class HousemaidPosting(models.TransientModel):
                                     required=False, default='dr_cr')
     link_to_application = fields.Boolean(string="Link To Application", default=True, )
     application_comparison = fields.Boolean(string="Application Comparison", default=False, )
+    report_generation = fields.Selection(string="Report Generation", selection=[('pdf', 'PDF'), ('excel', 'Excel'), ],
+                                         default='excel', required=False, )
 
     @api.multi
     def print_report(self):
@@ -32,8 +34,11 @@ class HousemaidPosting(models.TransientModel):
         data['posting_type'] = self.posting_type
         data['link_to_application'] = self.link_to_application
         data['application_comparison'] = self.application_comparison
+        data['report_generation'] = self.report_generation
 
-
-
-        report = self.env.ref('accounting_pdf_reports.housemaidposting_action')
+        if self.report_generation == 'pdf':
+            report = self.env.ref('accounting_pdf_reports.housemaidposting_action')
+        else:
+            report = self.env.ref('accounting_pdf_reports.housemaidposting_action_excel')
         return report.report_action(self, data=data)
+

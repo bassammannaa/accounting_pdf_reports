@@ -8,8 +8,19 @@
                 string="General Ledger"
                 report_type="qweb-html"
                 name="accounting_pdf_reports.report_generalledger"
-                file="accounting_pdf_reports.report_generalledger"
-        />
+                file="accounting_pdf_reports.report_generalledger"/>
+
+        <report
+                id="action_report_general_ledger_excel"
+                model="account.move.line"
+                string="General Ledger"
+                report_type="xlsx"
+                name="accounting_pdf_reports.report_generalledger_excel"
+                file="General Ledger"
+                attachment="(object.report_id.report_name)"
+                print_report_name="(object.report_id.report_name)"/>
+
+
         <report
                 id="action_report_partnerledger"
                 model="account.report.partner.ledger"
@@ -97,6 +108,19 @@
                 menu="True"
         />
         <report
+                id="housemaidposting_action_excel"
+                model="account.move.line"
+                string="Housemaid Posting Excel"
+                report_type="xlsx"
+                name="accounting_pdf_reports.report_housemaidposting_excel"
+                file="Housemaid Posting"
+                menu="False"
+                attachment="(object.report_id.report_name)"
+                print_report_name="(object.report_id.report_name)"/>
+
+
+
+        <report
                 id="action_report_accounts_balances"
                 model="account.report.report_accounts_balances"
                 string="Accounts Balances"
@@ -124,8 +148,18 @@
                 report_type="qweb-html"
                 name="accounting_pdf_reports.report_cashmovement"
                 file="accounting_pdf_reports.report_cashmovement"
-                menu="True"
-        />
+                menu="True"/>
+        <report
+                id="cash_movement_action_excel"
+                model="account.move.line"
+                string="Cash Movement Excel"
+                report_type="xlsx"
+                name="accounting_pdf_reports.report_cashmovement_excel"
+                file="Cash Movement"
+                menu="False"
+                attachment="(object.report_id.report_name)"
+                print_report_name="(object.report_id.report_name)"/>
+
 
     </data>
 </odoo>

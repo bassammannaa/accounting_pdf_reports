@@ -4,15 +4,15 @@
         <field name="name">Cash Movement</field>
         <field name="model">account.report.cash_movement</field>
         <field name="arch" type="xml">
-           <form string="Cash Movement">
+            <form string="Cash Movement">
                 <group>
                     <group>
                         <field name="from_date"/>
-
+                        <field name="to_date"/>
                     </group>
                     <group>
-                        <field name="to_date"/>
-
+                        <field name="journal_ids"/>
+                        <field name="report_generation" widget="radio"/>
                     </group>
                 </group>
 

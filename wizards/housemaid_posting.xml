@@ -4,20 +4,31 @@
         <field name="name">Housemaid Posting</field>
         <field name="model">account.report.housemaidposting</field>
         <field name="arch" type="xml">
-           <form string="Housemaid Posting">
+            <form string="Housemaid Posting">
                 <group>
-                    <group>
+                    <group string="Generation Period">
+                        <!--                        <separator string="Generation Period" colspan="2"/>-->
                         <field name="from_date" attrs="{'readonly': [('application_comparison', '=', 'True')]}"/>
                         <field name="to_date" attrs="{'readonly': [('application_comparison', '=', 'true')]}"/>
-                        <field name="link_to_application" attrs="{'readonly': [('application_comparison', '=', 'true')]}"/>
+                    </group>
+                    <group string="Posting Type">
+                        <field name="selected_account"
+                               options="{'no_open': True, 'no_create': True, 'no_create_edit': 'True'}"/>
+                        <field name="posting_type" attrs="{'readonly': [('application_comparison', '=', 'true')]}"/>
 
+                    </group>
+                </group>
+                <group>
+                    <group>
+                        <field name="application_comparison"/>
+                        <field name="link_to_application"
+                           attrs="{'readonly': [('application_comparison', '=', 'true')]}"/>
                     </group>
                     <group>
-                        <field name="selected_account" options="{'no_open': True, 'no_create': True, 'no_create_edit': 'True'}"/>
-                        <field name="posting_type" attrs="{'readonly': [('application_comparison', '=', 'true')]}"/>
-                        <field name="application_comparison"/>
 
+                        <field name="report_generation" widget="radio"/>
                     </group>
+
                 </group>
 
                 <footer>
@@ -36,6 +47,10 @@
         <field name="view_type">form</field>
         <field name="view_mode">form</field>
         <field name="view_id" ref="account_report_housemaidposting_view"/>
+        <field name="context" eval="{'default_from_date':
+                                        datetime.strftime(datetime.now()-timedelta(days=365),'%Y-%m-%d'),
+                                     'default_to_date':
+                                        datetime.strftime(datetime.now(),'%Y-%m-%d')}"/>
         <field name="target">new</field>
     </record>
 

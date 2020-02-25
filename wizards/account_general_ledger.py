@@ -14,7 +14,9 @@ class AccountReportGeneralLedger(models.TransientModel):
     sortby = fields.Selection([('sort_date', 'Date'), ('sort_journal_partner', 'Journal & Partner')], string='Sort by', required=True, default='sort_date')
     journal_ids = fields.Many2many('account.journal', 'account_report_general_ledger_journal_rel', 'account_id', 'journal_id', string='Journals', required=True)
     selected_account = fields.Many2one(comodel_name="account.account", string="Account",
-                                      required=False,)
+                                      required=True,)
+    report_generation = fields.Selection(string="Report Generation", selection=[('pdf', 'PDF'), ('excel', 'Excel'), ],
+                                         default='excel', required=False, )
 
 
 
@@ -23,10 +25,17 @@ class AccountReportGeneralLedger(models.TransientModel):
         data = self.pre_print_report(data)
         data['form'].update(self.read(['initial_balance', 'sortby'])[0])
         data['form'].update({'selected_account': self.selected_account.id if self.selected_account else 0})
+        data['report_generation'] = self.report_generation
 
         if data['form'].get('initial_balance') and not data['form'].get('date_from'):
             raise UserError(_("You must define a Start Date"))
         records = self.env[data['model']].browse(data.get('ids', []))
 
-        return self.env.ref('accounting_pdf_reports.action_report_general_ledger').\
-            with_context(landscape=True).report_action(records, data=data)
+        # return self.env.ref('accounting_pdf_reports.action_report_general_ledger').\
+        #     with_context(landscape=True).report_action(records, data=data)
+
+        if self.report_generation == 'pdf':
+            return self.env.ref('accounting_pdf_reports.action_report_general_ledger').with_context(landscape=True).report_action(self, data=data)
+        else:
+            return self.env.ref('accounting_pdf_reports.action_report_general_ledger_excel').report_action(self, data=data)
+
