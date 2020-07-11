@@ -305,8 +305,6 @@ class ReportGeneralLedgerExcel(models.AbstractModel):
             else:
                 accounts = docs if self.model == 'account.account' else self.env['account.account'].search([])
 
-
-
             # Pre-Format
             header_line_format_string = workbook.add_format(
                 {'bold': True, 'left': 1, 'font_size': 12, 'text_wrap': 0, 'bg_color': '#e7e3e2'})
@@ -315,11 +313,13 @@ class ReportGeneralLedgerExcel(models.AbstractModel):
 
             normal_line_format_string_nowrap = workbook.add_format(
                 {'bold': False, 'left': 1, 'font_size': 10, 'text_wrap': 0})
+
             normal_line_format_string_wrap = workbook.add_format(
                 {'bold': False, 'left': 1, 'font_size': 10, 'text_wrap': 1})
 
             normal_line_format_num_KWD = workbook.add_format(
                 {'bold': False, 'right': 1, 'font_size': 10, 'text_wrap': 0, 'num_format': '#,##0.000'})
+
             normal_line_format_num_USD = workbook.add_format(
                 {'bold': False, 'right': 1, 'font_size': 10, 'text_wrap': 0, 'num_format': '#,##0.00'})
 
@@ -336,7 +336,7 @@ class ReportGeneralLedgerExcel(models.AbstractModel):
             sheet.write(current_row, 2, 'JRNL', header_line_format_string)
             sheet.set_column(2, 2, 25)
 
-            sheet.write(current_row, 3, 'Code', header_line_format_num)
+            sheet.write(current_row, 3, 'Ref', header_line_format_num)
             sheet.set_column(3, 3, 25)
 
             sheet.write(current_row, 4, 'Partner Name', header_line_format_num)
@@ -354,7 +354,7 @@ class ReportGeneralLedgerExcel(models.AbstractModel):
             sheet.write(current_row, 8, 'Currency (USD)', header_line_format_num)
             sheet.set_column(8, 8, 15)
 
-            sheet.autofilter('A1:I1')
+            sheet.autofilter('A1:J1')
 
             accounts_res = self.with_context(data['form'].get('used_context', {}))._get_account_move_entry(accounts,
                                                                                                            init_balance,
@@ -363,17 +363,35 @@ class ReportGeneralLedgerExcel(models.AbstractModel):
             if accounts_res:
                 for account_details in accounts_res[0]['move_lines']:
                     current_row += 1
+
+                    #Transaction Date
                     sheet.write(current_row, 0, get_date_format(account_details.get('ldate', '')),
                                 normal_line_format_string_nowrap)
+
+                    #Move
                     sheet.write(current_row, 1, account_details.get('move_name', ''),
                                 normal_line_format_string_nowrap)
+
+                    #JRNL
                     sheet.write(current_row, 2, account_details.get('lcode', ''), normal_line_format_string_nowrap)
-                    sheet.write(current_row, 3, account_details.get('external_office_id', ''), normal_line_format_num_USD)
-                    sheet.write(current_row, 4, account_details.get('partner_name', ''), normal_line_format_num_USD)
-                    sheet.write(current_row, 5, account_details.get('debit', ''), normal_line_format_num_KWD)
-                    sheet.write(current_row, 6, account_details.get('credit', ''), normal_line_format_num_KWD)
-                    sheet.write(current_row, 7, account_details.get('balance', ''), normal_line_format_num_KWD)
-                    sheet.write(current_row, 8, account_details.get('amount_currency', ''), normal_line_format_num_USD)
+
+                    #Ref
+                    sheet.write(current_row, 3, account_details.get('lref', ''), normal_line_format_string_nowrap)
+
+                    #Partner Name
+                    sheet.write(current_row, 5, account_details.get('partner_name', ''), normal_line_format_string_nowrap)
+
+                    #Debit (KWD)
+                    sheet.write(current_row, 6, account_details.get('debit', ''), normal_line_format_num_KWD)
+
+                    # Credit (KWD)
+                    sheet.write(current_row, 7, account_details.get('credit', ''), normal_line_format_num_KWD)
+
+                    #Balance (KWD)
+                    sheet.write(current_row, 8, account_details.get('balance', ''), normal_line_format_num_KWD)
+
+                    #Currency (USD)
+                    sheet.write(current_row, 9, account_details.get('amount_currency', ''), normal_line_format_num_USD)
 
         except Exception as e:
             logger.exception("generate_xlsx_report Method")
