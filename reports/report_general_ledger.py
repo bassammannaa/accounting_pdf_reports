@@ -354,7 +354,7 @@ class ReportGeneralLedgerExcel(models.AbstractModel):
             sheet.write(current_row, 8, 'Currency (USD)', header_line_format_num)
             sheet.set_column(8, 8, 15)
 
-            sheet.autofilter('A1:J1')
+            sheet.autofilter('A1:I1')
 
             accounts_res = self.with_context(data['form'].get('used_context', {}))._get_account_move_entry(accounts,
                                                                                                            init_balance,
@@ -379,19 +379,19 @@ class ReportGeneralLedgerExcel(models.AbstractModel):
                     sheet.write(current_row, 3, account_details.get('lref', ''), normal_line_format_string_nowrap)
 
                     #Partner Name
-                    sheet.write(current_row, 5, account_details.get('partner_name', ''), normal_line_format_string_nowrap)
+                    sheet.write(current_row, 4, account_details.get('partner_name', ''), normal_line_format_string_nowrap)
 
                     #Debit (KWD)
-                    sheet.write(current_row, 6, account_details.get('debit', ''), normal_line_format_num_KWD)
+                    sheet.write(current_row, 5, account_details.get('debit', ''), normal_line_format_num_KWD)
 
                     # Credit (KWD)
-                    sheet.write(current_row, 7, account_details.get('credit', ''), normal_line_format_num_KWD)
+                    sheet.write(current_row, 6, account_details.get('credit', ''), normal_line_format_num_KWD)
 
                     #Balance (KWD)
-                    sheet.write(current_row, 8, account_details.get('balance', ''), normal_line_format_num_KWD)
+                    sheet.write(current_row, 7, account_details.get('balance', ''), normal_line_format_num_KWD)
 
                     #Currency (USD)
-                    sheet.write(current_row, 9, account_details.get('amount_currency', ''), normal_line_format_num_USD)
+                    sheet.write(current_row, 8, account_details.get('amount_currency', ''), normal_line_format_num_USD)
 
         except Exception as e:
             logger.exception("generate_xlsx_report Method")
